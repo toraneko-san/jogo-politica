@@ -16,17 +16,30 @@
     <div class="console">
       <div class="controle">
         <div class="controle-movimento">
-          <div class="controle-Up"></div>
-          <div class="controle-Left"></div>
-          <div class="controle-Down"></div>
-          <div class="controle-Right"></div>
+          <div class="controle-w"></div>
+          <div class="controle-a"></div>
+          <div class="controle-s"></div>
+          <div class="controle-d"></div>
         </div>
       </div>
-      <div class="jogo"></div>
+      <div class="jogo">
+        <svg
+          class="jogo-jogador"
+          height="50"
+          width="30"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polygon
+            points="15,0 30,50 0,50"
+            style="fill: #ff0000; stroke: black; stroke-width: 5"
+          />
+        </svg>
+        <img class="jogo-mapa" src="assets/mapa.jpg" alt="Mapa do jogo" />
+      </div>
       <div class="controle">
         <div class="controle-botoes">
-          <div class="controle-A">A</div>
-          <div class="controle-B">B</div>
+          <div class="controle-Enter">A</div>
+          <div class="controle-Shift">B</div>
         </div>
       </div>
     </div>
