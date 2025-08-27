@@ -1,1 +1,153 @@
-/*  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Jersey 10", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+  background-color: #000;
+}
+
+.console {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 10px;
+  border: 5px solid black;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: #332c50;
+}
+
+.jogo {
+  background-color: #000;
+}
+
+.controle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.controle-movimento {
+  display: grid;
+  grid-template-rows: 1fr 25% 1fr;
+  grid-template-columns: 1fr 25% 1fr;
+  width: 90%;
+  aspect-ratio: 1 / 1; /* Sets a 1:1 aspect ratio (height equals width) */
+}
+
+.controle-movimento div {
+  border: 5px solid black;
+  background-color: #c0c0c0;
+  box-shadow: 0px 0px 5px #000;
+  cursor: pointer;
+}
+
+.controle-movimento div:hover {
+    transform: scale(1.1);
+}
+
+.controle-Up {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-row-start: 1;
+  grid-column-start: 2;
+}
+
+.controle-Left {
+  grid-row-start: 2;
+  grid-column-start: 1;
+}
+
+.controle-Down {
+  grid-row-start: 3;
+  grid-column-start: 2;
+}
+
+.controle-Right {
+  grid-row-start: 2;
+  grid-column-start: 3;
+}
+
+.controle-botoes {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: 90%;
+  aspect-ratio: 1 / 1; /* Sets a 1:1 aspect ratio (height equals width) */
+}
+
+.controle-botoes div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid black;
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 0px 5px #000;
+  font-size: 64px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.controle-botoes div:hover {
+    transform: scale(1.1);
+}
+
+.controle-A {
+  grid-row: 1;
+  grid-column: 2;
+  background-color: #00aa00;
+}
+
+.controle-B {
+  grid-row: 2;
+  grid-column: 1;
+  background-color: #ff0000;
+}
+
+@media (max-width: 1024px) {
+  .console {
+    grid-template-rows: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .jogo {
+    grid-row: 1;
+    grid-column: 1 / span 2;
+  }
+
+  .controle {
+    margin: auto;
+    width: 55%;
+  }
+}
+
+@media (max-width: 768px) {
+  .controle {
+    margin: auto;
+    width: 70%;
+  }
+}
+
+@media (max-width: 640px) {
+  .controle {
+    margin: auto;
+    width: 90%;
+  }
+
+  .controle-movimento {
+    grid-template-rows: 1fr 30% 1fr;
+    grid-template-columns: 1fr 30% 1fr;
+  }
+}
