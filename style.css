@@ -29,6 +29,7 @@ body {
   position: relative;
   border: 10px solid black;
   overflow: hidden;
+  background-color: #0f0f0f;
 }
 
 .jogo-mapa {
@@ -64,10 +65,6 @@ body {
   background-color: #c0c0c0;
   box-shadow: 0px 0px 5px #000;
   cursor: pointer;
-}
-
-.controle-movimento div:hover {
-  transform: scale(1.1);
 }
 
 .controle-w {
@@ -116,10 +113,6 @@ body {
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
-}
-
-.controle-acao div:hover {
-  transform: scale(1.1);
 }
 
 .controle-enter {

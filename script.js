@@ -2,6 +2,7 @@ const jogador = document.querySelector(".jogo-jogador");
 const controlesMovimento = document.querySelectorAll(
   ".controle-movimento > div"
 );
+const controlesAcao = document.querySelectorAll(".controle-acao > div");
 
 const controle = {
   w: { estaPressionado: false },
@@ -14,7 +15,11 @@ const controle = {
 
 document.addEventListener("keydown", pressionarControle);
 controlesMovimento.forEach((controleMov) => {
-  controleMov.addEventListener("mouseenter", pressionarControle);
+  controleMov.addEventListener("mousedown", pressionarControle);
+  controleMov.addEventListener("touchstart", pressionarControle);
+});
+controlesAcao.forEach((controleMov) => {
+  controleMov.addEventListener("mousedown", pressionarControle);
   controleMov.addEventListener("touchstart", pressionarControle);
 });
 
@@ -23,29 +28,33 @@ controlesMovimento.forEach((controleMov) => {
   controleMov.addEventListener("mouseleave", soltarControle);
   controleMov.addEventListener("touchend", soltarControle);
 });
+controlesAcao.forEach((controleMov) => {
+  controleMov.addEventListener("mouseleave", soltarControle);
+  controleMov.addEventListener("touchend", soltarControle);
+});
 
-function pressionarControle(event) {    
+function pressionarControle(event) {
+  let teclaPressionada;
   if (event.type == "keydown") {
     // acessar a tecla pressionada
-    const teclaPressionada = event.key.toLowerCase();
+    teclaPressionada = event.key.toLowerCase();
+  } else if (event.type == "mousedown" || event.type == "touchstart") {
+    teclaPressionada = event.target.classList[0].replace("controle-", "");
+  }
 
-    const existeTecla = Object.keys(controle).includes(teclaPressionada);
-    if (!existeTecla) return;
+  const existeTecla = Object.keys(controle).includes(teclaPressionada);
+  if (!existeTecla) return;
 
-    const existeTeclaMov = Object.keys(controle)
-      .slice(0, 4)
-      .includes(teclaPressionada);
+  const existeTeclaMov = Object.keys(controle)
+    .slice(0, 4)
+    .includes(teclaPressionada);
 
-    const existeTeclaAcao = Object.keys(controle)
-      .slice(4, 6)
-      .includes(teclaPressionada);
+  const existeTeclaAcao = Object.keys(controle)
+    .slice(4, 6)
+    .includes(teclaPressionada);
 
-    if (existeTeclaMov || existeTeclaAcao) {
-      // não permitir que o jogador aperte mais de duas teclas de movimento
-      controle[teclaPressionada].estaPressionado = true;
-    }
-  } else if (event.type == "mouseenter" || event.type == "touchstart") {
-    const teclaPressionada = event.target.classList[0].replace("controle-", "");
+  if (existeTeclaMov || existeTeclaAcao) {
+    // não permitir que o jogador aperte mais de duas teclas de movimento
     controle[teclaPressionada].estaPressionado = true;
   }
 
