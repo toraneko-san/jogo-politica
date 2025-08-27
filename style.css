@@ -93,7 +93,7 @@ body {
   grid-column-start: 3;
 }
 
-.controle-botoes {
+.controle-acao {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
@@ -101,7 +101,7 @@ body {
   aspect-ratio: 1 / 1; /* Sets a 1:1 aspect ratio (height equals width) */
 }
 
-.controle-botoes div {
+.controle-acao div {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,17 +118,17 @@ body {
   cursor: pointer;
 }
 
-.controle-botoes div:hover {
+.controle-acao div:hover {
   transform: scale(1.1);
 }
 
-.controle-Enter {
+.controle-enter {
   grid-row: 1;
   grid-column: 2;
   background-color: #00aa00;
 }
 
-.controle-Shift {
+.controle-shift {
   grid-row: 2;
   grid-column: 1;
   background-color: #ff0000;

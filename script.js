@@ -8,8 +8,8 @@ const controle = {
   a: { estaPressionado: false },
   s: { estaPressionado: false },
   d: { estaPressionado: false },
-  Enter: { estaPressionado: false },
-  Shift: { estaPressionado: false },
+  enter: { estaPressionado: false },
+  shift: { estaPressionado: false },
 };
 
 document.addEventListener("keydown", pressionarControle);
@@ -24,22 +24,26 @@ controlesMovimento.forEach((controleMov) => {
   controleMov.addEventListener("touchend", soltarControle);
 });
 
-function pressionarControle(event) {
-  // não permitir que o jogador aperte mais de duas teclas de movimento
-  const qtdTeclasMovPress = Object.values(controle)
-    .slice(0, 4)
-    .filter((tecla) => tecla.estaPressionado == true).length;
-  if (qtdTeclasMovPress > 2) return;
-
+function pressionarControle(event) {    
   if (event.type == "keydown") {
     // acessar a tecla pressionada
     const teclaPressionada = event.key.toLowerCase();
 
-    // se jogador pressionar uma tecla que não funciona no jogo, não fazer nada
     const existeTecla = Object.keys(controle).includes(teclaPressionada);
     if (!existeTecla) return;
 
-    controle[teclaPressionada].estaPressionado = true;
+    const existeTeclaMov = Object.keys(controle)
+      .slice(0, 4)
+      .includes(teclaPressionada);
+
+    const existeTeclaAcao = Object.keys(controle)
+      .slice(4, 6)
+      .includes(teclaPressionada);
+
+    if (existeTeclaMov || existeTeclaAcao) {
+      // não permitir que o jogador aperte mais de duas teclas de movimento
+      controle[teclaPressionada].estaPressionado = true;
+    }
   } else if (event.type == "mouseenter" || event.type == "touchstart") {
     const teclaPressionada = event.target.classList[0].replace("controle-", "");
     controle[teclaPressionada].estaPressionado = true;
@@ -51,7 +55,7 @@ function pressionarControle(event) {
 
 function soltarControle(event) {
   if (event.type == "keyup") {
-    const teclaSolta =  event.key.toLowerCase();
+    const teclaSolta = event.key.toLowerCase();
 
     const existeTecla = Object.keys(controle).includes(teclaSolta);
     if (!existeTecla) return;
