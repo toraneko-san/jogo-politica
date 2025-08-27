@@ -34,8 +34,17 @@ body {
 
 .jogo-mapa {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 200%;
   filter: brightness(90%);
+}
+
+.jogo-fog {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(circle at 50% 50%, transparent 25%, #0f0f0f 50%);
 }
 
 .jogo-jogador {
