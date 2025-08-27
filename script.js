@@ -144,6 +144,8 @@ function mudarEstiloControle() {
 
 function movimentarMapa() {
   const velocidade = 3;
+  
+  console.log(mapaPos)
 
   if (controle.a.estaPressionado) mapaPos.x += velocidade;
   if (controle.d.estaPressionado) mapaPos.x -= velocidade;
@@ -174,3 +176,38 @@ function atualizarDimensoes() {
 
 window.addEventListener("load", atualizarDimensoes);
 window.addEventListener("resize", atualizarDimensoes);
+
+const lugares = [
+  {
+    id: 1,
+    nome: "UNAS",
+    imgSrc: "./assets/unas.jpg",
+    descricao: "AAAAA",
+    minX: 10,
+    minY: 125,
+  },
+  {
+    id: 2,
+    nome: "Mec Favela",
+    imgSrc: "./assets/mec-favela.png",
+    descricao: "AAAAA",
+    minX: 830,
+    minY: 780,
+  },
+];
+
+function renderizarLugares() {
+  lugares.forEach((lugar) => {
+    mapa.innerHTML += `
+      <img 
+        id="lugar-${lugar.id}" 
+        class="jogo-lugar" 
+        src="${lugar.imgSrc}" 
+        alt="${lugar.nome}"
+        style="top: ${lugar.minY}px; left: ${lugar.minX}px;"
+      />
+    `;
+  });
+}
+
+renderizarLugares()
