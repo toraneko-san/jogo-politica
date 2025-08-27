@@ -22,7 +22,7 @@ let minX, maxX, minY, maxY;
 let animacaoAtiva = false;
 let idMapaAnimacao;
 
-document.addEventListener("keypress", pressionarControle);
+document.addEventListener("keydown", pressionarControle);
 controlesMovimento.forEach((controleMov) => {
   controleMov.addEventListener("mousedown", pressionarControle);
   controleMov.addEventListener("touchstart", pressionarControle);
@@ -45,7 +45,7 @@ controlesAcao.forEach((controleMov) => {
 function pressionarControle(event) {
   // verificar qual tecla está sendo pressionada
   let teclaPressionada;
-  if (event.type == "keypress") {
+  if (event.type == "keydown") {
     // acessar a tecla pressionada
     teclaPressionada = event.key.toLowerCase();
   } else if (event.type == "mousedown" || event.type == "touchstart") {
@@ -142,7 +142,7 @@ function mudarEstiloControle() {
   }
 }
 
-function movimentarMapa(tempoAgora) {
+function movimentarMapa() {
   const velocidade = 3;
 
   if (controle.a.estaPressionado) mapaPos.x += velocidade;
