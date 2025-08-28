@@ -8,6 +8,7 @@ const mapa = document.querySelector(".jogo-mapa");
 const lugares = document.querySelector(".jogo-lugares");
 const jogador = document.querySelector(".jogo-jogador");
 const descricao = document.querySelector(".jogo-descricao");
+const ordem = document.querySelector(".jogo-ordem");
 
 const controle = {
   w: { estaPressionado: false },
@@ -199,13 +200,18 @@ const LUGARES = [
       "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum corrupti, minima eum unde magnam dolorem exercitationem eveniet natus praesentium repellendus inventore accusamus, nostrum quos illum itaque explicabo! Magni, officia debitis.",
     linha: 1,
     coluna: 1,
+    mostrarDica: true,
+    dica: 1,
   },
   {
     nome: "Mec Favela",
     imgSrc: "./assets/mec-favela.png",
-    descricao: "Um encontro onde música, dança e saúde vão além da festa: são resistência, cultura e a voz da comunidade. É um espaço político que denuncia desigualdades, reivindica direitos e transforma lazer em cidadania. Cada rima e cada passo celebram a força da periferia e reafirmam sua existência.",
+    descricao:
+      "Um encontro onde música, dança e saúde vão além da festa: são resistência, cultura e a voz da comunidade. É um espaço político que denuncia desigualdades, reivindica direitos e transforma lazer em cidadania. Cada rima e cada passo celebram a força da periferia e reafirmam sua existência.",
     linha: 9,
     coluna: 9,
+    mostrarDica: false,
+    dica: 0,
   },
 ];
 
@@ -276,11 +282,70 @@ function mostrarDescricaoLugar() {
     `;
     descricao.classList.remove("escondido");
     temDescricao = true;
+
+    if (controle.enter == true) verificarOrdem();
+  }
+
+  if (temLugar) {
+    verificarOrdem(lugarId);
   }
 
   if (temDescricao && !temLugar) {
     descricao.innerHTML = "";
+    ordem.innerHTML = "";
     descricao.classList.add("escondido");
+    ordem.classList.add("escondido");
     temDescricao = false;
+    temOrdem = false;
+  }
+}
+
+let ordemJogo = 1;
+let temOrdem = false;
+
+function verificarOrdem(lugarId) {
+  if (LUGARES[lugarId].mostrarDica) {
+    ordem.innerHTML = `
+      <p>Próxima dica:<br/>${LUGARES[lugarId].dica}</p>
+    `;
+    ordem.classList.remove("escondido");
+    // ordemJogo = lugarId + 1;
+    return;
+  }
+
+  if (!temOrdem && !controle.enter.estaPressionado) return;
+
+  if (!temOrdem && controle.enter.estaPressionado) {
+    ordem.innerHTML = `
+      <p>Selecionar<br/>${LUGARES[lugarId].nome}?</p>
+      <div><div class="opcao-enter">A</div>Sim</div>
+      <div><div class="opcao-shift">B</div>Não</div>
+    `;
+    ordem.classList.remove("escondido");
+    temOrdem = true;
+    return;
+  }
+
+  if (controle.shift.estaPressionado) {
+    ordem.innerHTML = ``;
+    ordem.classList.add("escondido");
+    temOrdem = false;
+    return;
+  }
+
+  if (controle.enter.estaPressionado) {
+    if (ordemJogo == lugarId) {
+      ordem.innerHTML = `
+      <p>Próxima dica:<br/>${LUGARES[lugarId].dica}</p>
+      `;
+      ordem.classList.remove("escondido");
+
+      LUGARES[lugarId].mostrarDica = true;
+      ordemJogo = lugarId + 1;
+    } else {
+      ordem.innerHTML = `
+        <p>Não é o lugar certo...</p>
+      `;
+    }
   }
 }
