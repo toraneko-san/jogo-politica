@@ -5,7 +5,9 @@ const controlesAcao = document.querySelectorAll(".controle-acao > div");
 
 const jogo = document.querySelector(".jogo");
 const mapa = document.querySelector(".jogo-mapa");
+const lugares = document.querySelector(".jogo-lugares");
 const jogador = document.querySelector(".jogo-jogador");
+const descricao = document.querySelector(".jogo-descricao");
 
 const controle = {
   w: { estaPressionado: false },
@@ -68,12 +70,17 @@ function pressionarControle(event) {
     controle[teclaPressionada].estaPressionado = true;
   }
 
+  if (teclaPressionada == "enter") {
+    //
+  }
+
   // ativar animacao se tiver movimento
   if (!animacaoAtiva && existeTeclaMov) {
     animacaoAtiva = true;
     movimentarMapa();
   }
 
+  mostrarDescricaoLugar();
   rotacionarJogador();
   mudarEstiloControle();
 }
@@ -144,8 +151,6 @@ function mudarEstiloControle() {
 
 function movimentarMapa() {
   const velocidade = 3;
-  
-  console.log(mapaPos)
 
   if (controle.a.estaPressionado) mapaPos.x += velocidade;
   if (controle.d.estaPressionado) mapaPos.x -= velocidade;
@@ -168,46 +173,114 @@ function atualizarDimensoes() {
   const [widthMapa, heightMapa] = [mapa.clientWidth, mapa.clientHeight];
   const heightJogador = jogador.clientHeight;
 
+  // console.log("jogo", "width", widthJogo, "height", heightJogo);
+  // console.log("mapa", "width", widthMapa, "height", heightMapa);
+  // console.log("jogador", "height", heightJogador);
+
   minX = (widthJogo - heightJogador) / 2;
   maxX = widthJogo / 2 + heightJogador - widthMapa;
   minY = (heightJogo - heightJogador) / 2;
   maxY = heightJogo / 2 + heightJogador - heightMapa;
+
+  // console.log("top left", "x", minX, "y", minY);
+  // console.log("top right", "x", maxX, "y", minY);
+  // console.log("bottom left", "x", minX, "y", maxY);
+  // console.log("bottom right", "x", maxX, "y", maxY);
 }
 
 window.addEventListener("load", atualizarDimensoes);
 window.addEventListener("resize", atualizarDimensoes);
 
-const lugares = [
+const LUGARES = [
   {
-    id: 1,
     nome: "UNAS",
     imgSrc: "./assets/unas.jpg",
-    descricao: "AAAAA",
-    minX: 10,
-    minY: 125,
+    descricao:
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum corrupti, minima eum unde magnam dolorem exercitationem eveniet natus praesentium repellendus inventore accusamus, nostrum quos illum itaque explicabo! Magni, officia debitis.",
+    linha: 1,
+    coluna: 1,
   },
   {
-    id: 2,
     nome: "Mec Favela",
     imgSrc: "./assets/mec-favela.png",
-    descricao: "AAAAA",
-    minX: 830,
-    minY: 780,
+    descricao: "Um encontro onde música, dança e saúde vão além da festa: são resistência, cultura e a voz da comunidade. É um espaço político que denuncia desigualdades, reivindica direitos e transforma lazer em cidadania. Cada rima e cada passo celebram a força da periferia e reafirmam sua existência.",
+    linha: 9,
+    coluna: 9,
   },
 ];
 
+let matrizLugar;
+
+function criarMatrizLugar() {
+  const LINHA = 10;
+  const COLUNA = 10;
+  matrizLugar = Array(LINHA)
+    .fill(null)
+    .map(() => Array(COLUNA).fill({ temLugar: false, lugarId: null }));
+
+  for (let i = 0; i < LUGARES.length; i++) {
+    const lugar = LUGARES[i];
+
+    matrizLugar[lugar.linha - 1][lugar.coluna - 1] = {
+      temLugar: true,
+      lugarId: i,
+    };
+    matrizLugar[lugar.linha][lugar.coluna - 1] = { temLugar: true, lugarId: i };
+    matrizLugar[lugar.linha - 1][lugar.coluna] = { temLugar: true, lugarId: i };
+    matrizLugar[lugar.linha][lugar.coluna] = { temLugar: true, lugarId: i };
+  }
+}
+
+criarMatrizLugar();
+
 function renderizarLugares() {
-  lugares.forEach((lugar) => {
-    mapa.innerHTML += `
+  LUGARES.forEach((lugar) => {
+    lugares.innerHTML += `
       <img 
-        id="lugar-${lugar.id}" 
         class="jogo-lugar" 
         src="${lugar.imgSrc}" 
         alt="${lugar.nome}"
-        style="top: ${lugar.minY}px; left: ${lugar.minX}px;"
+        style="grid-row: ${lugar.linha} / span 2; grid-column: ${lugar.coluna} / span 2"
       />
     `;
   });
 }
 
-renderizarLugares()
+renderizarLugares();
+
+const mapaGridPos = { linha: 1, coluna: 1 };
+let temDescricao = false;
+
+function mostrarDescricaoLugar() {
+  mapaGridPos.linha = Math.ceil(
+    Math.abs((mapaPos.y - minY) / (maxY - minY) / 10) * 100
+  );
+  mapaGridPos.coluna = Math.ceil(
+    Math.abs((mapaPos.x - minX) / (maxX - minX) / 10) * 100
+  );
+
+  if (mapaGridPos.linha == 0) mapaGridPos.linha = 1;
+  if (mapaGridPos.coluna == 0) mapaGridPos.coluna = 1;
+
+  // console.log("mapaPos", mapaPos)
+  // console.log("mapaGridPos", mapaGridPos);
+
+  const { temLugar, lugarId } =
+    matrizLugar[mapaGridPos.linha - 1][mapaGridPos.coluna - 1];
+  if (!temDescricao && temLugar) {
+    descricao.innerHTML = `
+      <p>
+        <u>${LUGARES[lugarId].nome}</u> </br>
+        ${LUGARES[lugarId].descricao}
+      </p>
+    `;
+    descricao.classList.remove("escondido");
+    temDescricao = true;
+  }
+
+  if (temDescricao && !temLugar) {
+    descricao.innerHTML = "";
+    descricao.classList.add("escondido");
+    temDescricao = false;
+  }
+}

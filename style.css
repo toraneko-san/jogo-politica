@@ -42,10 +42,23 @@ body {
   height: 1000px;
 }
 
-.jogo-mapa img:first-child {
+.jogo-mapa > img:first-child {
   width: 1400px;
   height: 1000px;
   filter: brightness(90%);
+}
+
+.jogo-lugares {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+  place-items: center;
+}
+
+.jogo-lugares img {
+  width: 40%;
+  object-fit: contain;
 }
 
 .jogo-fog {
@@ -66,6 +79,40 @@ body {
   position: absolute;
   width: 150px;
   height: 150px;
+}
+
+.jogo-descricao {
+  z-index: 10;
+  position: absolute;
+  inset: auto 10px 10px 10px;
+  border: 5px solid #fff;
+  padding: 10px 20px;
+  height: 30%;
+  overflow-y: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 40px;
+}
+
+.jogo-descricao p {
+  animation: autoscroll 10s linear infinite;
+}
+
+.jogo-descricao span {
+  color: #ff0000;
+}
+
+@keyframes autoscroll {
+  0%,
+  20% {
+    /* Start at the top */
+    transform: translateY(0%);
+  }
+  50%,
+  100% {
+    /* Scroll to the bottom (or top for reverse) */
+    transform: translateY(-50%);
+  }
 }
 
 .controle {
@@ -189,4 +236,8 @@ body {
     grid-template-rows: 1fr 30% 1fr;
     grid-template-columns: 1fr 30% 1fr;
   }
+}
+
+.escondido {
+  display: none;
 }
