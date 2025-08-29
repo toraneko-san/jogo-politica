@@ -11,7 +11,7 @@ const lugares = document.querySelector(".jogo-lugares");
 const jogador = document.querySelector(".jogo-jogador");
 const descricao = document.querySelector(".jogo-descricao");
 const ordem = document.querySelector(".jogo-ordem");
-const inicio = document.querySelector(".jogo-inicio")
+const inicio = document.querySelector(".jogo-inicio");
 
 const controle = {
   w: { estaPressionado: false },
@@ -80,7 +80,7 @@ function pressionarControle(event) {
 
   if (temInicio) {
     if (controle.enter.estaPressionado) {
-      inicio.classList.add("escondido")
+      inicio.classList.add("escondido");
       temInicio = false;
     }
     return;
@@ -161,7 +161,7 @@ function mudarEstiloControle() {
 }
 
 function movimentarMapa() {
-  const velocidade = 2.5;
+  const velocidade = 2;
 
   if (controle.a.estaPressionado) mapaPos.x += velocidade;
   if (controle.d.estaPressionado) mapaPos.x -= velocidade;
@@ -243,6 +243,7 @@ renderizarLugares();
 
 const mapaGridPos = { linha: 1, coluna: 1 };
 let temDescricao = false;
+let descricaoId;
 
 function mostrarDescricaoLugar() {
   mapaGridPos.linha = Math.ceil(
@@ -260,7 +261,20 @@ function mostrarDescricaoLugar() {
 
   const { temLugar, lugarId } =
     matrizLugar[mapaGridPos.linha - 1][mapaGridPos.coluna - 1];
-  if (!temDescricao && temLugar) {
+
+  if (!temLugar) {
+    descricao.innerHTML = "";
+    ordem.innerHTML = "";
+    descricao.classList.add("escondido");
+    ordem.classList.add("escondido");
+    temDescricao = false;
+    temOrdem = false;
+    return;
+  }
+
+  if (!temDescricao || lugarId != descricaoId) {
+    ordem.innerHTML = "";
+    ordem.classList.add("escondido");
     descricao.innerHTML = `
       <p>
         <u>${LUGARES[lugarId].nome}</u> </br>
@@ -269,22 +283,12 @@ function mostrarDescricaoLugar() {
     `;
     descricao.classList.remove("escondido");
     temDescricao = true;
+    descricaoId = lugarId;
 
     if (controle.enter == true) verificarOrdem();
   }
 
-  if (temLugar) {
-    verificarOrdem(lugarId);
-  }
-
-  if (temDescricao && !temLugar) {
-    descricao.innerHTML = "";
-    ordem.innerHTML = "";
-    descricao.classList.add("escondido");
-    ordem.classList.add("escondido");
-    temDescricao = false;
-    temOrdem = false;
-  }
+  verificarOrdem(lugarId);
 }
 
 let ordemJogo = 0;
@@ -320,9 +324,13 @@ function verificarOrdem(lugarId) {
   }
 
   if (controle.enter.estaPressionado) {
+    if (ordemJogo + 1 == LUGARES.length) {
+      alert("fim!")
+    }
+
     if (ordemJogo + 1 == lugarId) {
       ordem.innerHTML = `
-      <p>Próxima dica:<br/>${LUGARES[lugarId].dica}</p>
+      <p>Dica do próximo lugar:<br/>${LUGARES[lugarId].dica}</p>
       `;
       ordem.classList.remove("escondido");
 
