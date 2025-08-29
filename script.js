@@ -11,6 +11,7 @@ const lugares = document.querySelector(".jogo-lugares");
 const jogador = document.querySelector(".jogo-jogador");
 const descricao = document.querySelector(".jogo-descricao");
 const ordem = document.querySelector(".jogo-ordem");
+const inicio = document.querySelector(".jogo-inicio")
 
 const controle = {
   w: { estaPressionado: false },
@@ -26,6 +27,8 @@ let minX, maxX, minY, maxY;
 
 let animacaoAtiva = false;
 let idMapaAnimacao;
+
+let temInicio = true;
 
 document.addEventListener("keydown", pressionarControle);
 controlesMovimento.forEach((controleMov) => {
@@ -73,8 +76,14 @@ function pressionarControle(event) {
     controle[teclaPressionada].estaPressionado = true;
   }
 
-  if (teclaPressionada == "enter") {
-    //
+  mudarEstiloControle();
+
+  if (temInicio) {
+    if (controle.enter.estaPressionado) {
+      inicio.classList.add("escondido")
+      temInicio = false;
+    }
+    return;
   }
 
   // ativar animacao se tiver movimento
@@ -85,7 +94,6 @@ function pressionarControle(event) {
 
   mostrarDescricaoLugar();
   rotacionarJogador();
-  mudarEstiloControle();
 }
 
 function soltarControle(event) {
