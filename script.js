@@ -1,3 +1,5 @@
+import { LUGARES } from "./const.js";
+
 const controlesMovimento = document.querySelectorAll(
   ".controle-movimento > div"
 );
@@ -151,7 +153,7 @@ function mudarEstiloControle() {
 }
 
 function movimentarMapa() {
-  const velocidade = 3;
+  const velocidade = 2.5;
 
   if (controle.a.estaPressionado) mapaPos.x += velocidade;
   if (controle.d.estaPressionado) mapaPos.x -= velocidade;
@@ -191,29 +193,6 @@ function atualizarDimensoes() {
 
 window.addEventListener("load", atualizarDimensoes);
 window.addEventListener("resize", atualizarDimensoes);
-
-const LUGARES = [
-  {
-    nome: "UNAS",
-    imgSrc: "./assets/unas.jpg",
-    descricao:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum corrupti, minima eum unde magnam dolorem exercitationem eveniet natus praesentium repellendus inventore accusamus, nostrum quos illum itaque explicabo! Magni, officia debitis.",
-    linha: 1,
-    coluna: 1,
-    mostrarDica: true,
-    dica: 1,
-  },
-  {
-    nome: "Mec Favela",
-    imgSrc: "./assets/mec-favela.png",
-    descricao:
-      "Um encontro onde música, dança e saúde vão além da festa: são resistência, cultura e a voz da comunidade. É um espaço político que denuncia desigualdades, reivindica direitos e transforma lazer em cidadania. Cada rima e cada passo celebram a força da periferia e reafirmam sua existência.",
-    linha: 9,
-    coluna: 9,
-    mostrarDica: false,
-    dica: 0,
-  },
-];
 
 let matrizLugar;
 
@@ -300,16 +279,15 @@ function mostrarDescricaoLugar() {
   }
 }
 
-let ordemJogo = 1;
+let ordemJogo = 0;
 let temOrdem = false;
 
 function verificarOrdem(lugarId) {
-  if (LUGARES[lugarId].mostrarDica) {
+  if (lugarId == ordemJogo) {
     ordem.innerHTML = `
-      <p>Próxima dica:<br/>${LUGARES[lugarId].dica}</p>
+      <p>Dica do próximo lugar:<br/>${LUGARES[lugarId].dica}</p>
     `;
     ordem.classList.remove("escondido");
-    // ordemJogo = lugarId + 1;
     return;
   }
 
@@ -334,14 +312,13 @@ function verificarOrdem(lugarId) {
   }
 
   if (controle.enter.estaPressionado) {
-    if (ordemJogo == lugarId) {
+    if (ordemJogo + 1 == lugarId) {
       ordem.innerHTML = `
       <p>Próxima dica:<br/>${LUGARES[lugarId].dica}</p>
       `;
       ordem.classList.remove("escondido");
 
-      LUGARES[lugarId].mostrarDica = true;
-      ordemJogo = lugarId + 1;
+      ordemJogo += 1;
     } else {
       ordem.innerHTML = `
         <p>Não é o lugar certo...</p>

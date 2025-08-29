@@ -95,20 +95,20 @@ body {
 }
 
 .jogo-descricao p {
-  animation: autoscroll 10s linear infinite;
+  animation: autoscroll 12.5s linear infinite;
 }
 
 .jogo-descricao span {
-  color: #ff0000;
+  color: #00aa00;
 }
 
 @keyframes autoscroll {
   0%,
-  20% {
+  10% {
     /* Start at the top */
     transform: translateY(0%);
   }
-  50%,
+  80%,
   100% {
     /* Scroll to the bottom (or top for reverse) */
     transform: translateY(-50%);
@@ -133,7 +133,7 @@ body {
 .jogo-ordem p {
   grid-area: 1 / 1 / 1 / span 2;
   text-align: center;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .jogo-ordem > div {
