@@ -161,7 +161,7 @@ function mudarEstiloControle() {
 }
 
 function movimentarMapa() {
-  const velocidade = 2;
+  const velocidade = 3;
 
   if (controle.a.estaPressionado) mapaPos.x += velocidade;
   if (controle.d.estaPressionado) mapaPos.x -= velocidade;
@@ -295,6 +295,13 @@ let ordemJogo = 0;
 let temOrdem = false;
 
 function verificarOrdem(lugarId) {
+  if (ordemJogo == LUGARES.length) {
+    ordem.innerHTML = `
+      <p>FIM DO JOGO!</p>
+    `;
+    return;
+  }
+
   if (lugarId == ordemJogo) {
     ordem.innerHTML = `
       <p>Dica do próximo lugar:<br/>${LUGARES[lugarId].dica}</p>
@@ -324,8 +331,12 @@ function verificarOrdem(lugarId) {
   }
 
   if (controle.enter.estaPressionado) {
-    if (ordemJogo + 1 == LUGARES.length) {
-      alert("fim!")
+    if (ordemJogo + 1 == LUGARES.length && lugarId == 0) {
+      ordem.innerHTML = `
+      <p>FIM DO JOGO!</p>
+    `;
+      ordemJogo += 1;
+      return;
     }
 
     if (ordemJogo + 1 == lugarId) {

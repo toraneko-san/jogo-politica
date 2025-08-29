@@ -15,7 +15,7 @@ export const LUGARES = [
       "O Instituto Baccarelli é uma organização sem fins lucrativos que oferece educação musical gratuita para crianças e jovens da comunidade de Heliópolis. A ideia surgiu como uma forma de trazer esperança e oportunidades por meio da música.",
     linha: 1,
     coluna: 9,
-    dica: "5",
+    dica: "4",
   },
   {
     nome: "Rádio Comunitária Heliópolis",
@@ -24,7 +24,7 @@ export const LUGARES = [
       "A Rádio Comunitária de Heliópolis foi criada em 1992 pela UNAS e é instrumento de voz, mobilização e cultura da comunidade. Símbolo de resistência, a rádio abrange toda a comunidade e é um importante veiculo de informação para a população local.",
     linha: 9,
     coluna: 3,
-    dica: "0",
+    dica: "8",
   },
   {
     nome: "Baile do Helipa",
@@ -33,16 +33,16 @@ export const LUGARES = [
       "Um encontro onde música, dança e saúde vão além da festa: são resistência, cultura e a voz da comunidade. O fluxo é um espaço político que denuncia desigualdades, reivindica direitos e transforma lazer em cidadania. Cada rima e cada passo celebram a força da periferia e reafirmam sua existência.",
     linha: 2,
     coluna: 6,
-    dica: "0",
+    dica: "11",
   },
   {
     nome: "Mec Favela",
     imgSrc: "./assets/mec-favela.png",
     descricao:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum corrupti, minima eum unde magnam dolorem exercitationem eveniet natus praesentium repellendus inventore accusamus, nostrum quos illum itaque explicabo! Magni, officia debitis.",
+      "Popular em Heliópolis, o Mec Favela é uma hamburgueira conhecida pela comunidade local pelo seu sabor único e simpatia nos atendimentos. O restaurante foi processado pelo McDonald's devido à semelhança no nome.",
     linha: 6,
     coluna: 5,
-    dica: "0",
+    dica: "15",
   },
   {
     nome: "Ratatá F.C.",
@@ -51,7 +51,7 @@ export const LUGARES = [
       "O Ratata FC é um time de futebol amador situado em Heliópolis. O time de várzea que foi fundado em dezembro de 97 vem oferecendo não só uma alegria futebolística para os moradores da comunidade, mas também, uma marca e símbolo cultural e esportivo da região.",
     linha: 5,
     coluna: 8,
-    dica: "0",
+    dica: "17",
   },
   {
     nome: "Cozinha Solidária",
@@ -60,7 +60,7 @@ export const LUGARES = [
       "A cozinha solidária de Heliópolis é um projeto da UNAS voltado ao acesso igualitário a alimentação de qualidade para toda a população. Oferecido de segunda a sábado, são servidas uma refeição ao almoço, auxiliando a população que sofre com a defasagem alimentar.",
     linha: 6,
     coluna: 1,
-    dica: "0",
+    dica: "20",
   },
   {
     nome: "EMEF Campos Salles",
@@ -69,6 +69,6 @@ export const LUGARES = [
       "A EMEF Presidente Campos Salles é uma escola pública que se tornou símbolo de educação transformadora dentro de Heliópolis. Ela é conhecida por derrubar muros — literalmente e simbolicamente — para se integrar à comunidade e criar um ambiente de aprendizado democrático, inclusivo e participativo.",
     linha: 9,
     coluna: 7,
-    dica: "0",
+    dica: "23",
   },
 ];
